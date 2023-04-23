@@ -27,6 +27,10 @@ github_username:  lyhistory
 # Build settings
 markdown: kramdown
 remote_theme: "mmistakes/minimal-mistakes@4.24.0"
+
+include:
+  - _pages
+  
 plugins:
   - jekyll-feed
   - jekyll-include-cache
