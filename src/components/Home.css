@@ -1,0 +1,100 @@
+.home-container {
+    text-align: center;
+    padding: 2rem;
+    background: linear-gradient(180deg, #87CEEB 0%, #E0F7FA 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.title {
+    font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
+    color: #fff;
+    text-shadow: 2px 2px 0px #FF9800;
+    margin-bottom: 3rem;
+    font-size: 3rem;
+}
+
+.button-group {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    z-index: 10;
+}
+
+.level-btn {
+    border: none;
+    padding: 1.5rem 2.5rem;
+    border-radius: 50px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    color: white;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.level-btn:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.btn-100 {
+    background-color: #FF5722;
+}
+
+.btn-1000 {
+    background-color: #4CAF50;
+}
+
+.btn-3000 {
+    background-color: #2196F3;
+}
+
+/* Simple pure CSS decorations */
+.decoration {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.sun {
+    position: absolute;
+    top: 50px;
+    right: 50px;
+    width: 80px;
+    height: 80px;
+    background: #FFEB3B;
+    border-radius: 50%;
+    box-shadow: 0 0 40px #FFEB3B;
+}
+
+.cloud {
+    position: absolute;
+    top: 100px;
+    left: 10%;
+    width: 120px;
+    height: 60px;
+    background: white;
+    border-radius: 50px;
+    opacity: 0.8;
+}
+
+.cloud::after {
+    content: '';
+    position: absolute;
+    top: -30px;
+    left: 20px;
+    width: 60px;
+    height: 60px;
+    background: white;
+    border-radius: 50%;
+}
