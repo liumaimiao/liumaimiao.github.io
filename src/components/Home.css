@@ -2,58 +2,76 @@
     text-align: center;
     padding: 2rem;
     background: linear-gradient(180deg, #87CEEB 0%, #E0F7FA 100%);
-    min-height: 100vh;
+    flex: 1;
+    /* Take up full height of #root */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
+    width: 100%;
     position: relative;
+    overflow: hidden;
 }
 
 .title {
-    font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
     color: #fff;
-    text-shadow: 2px 2px 0px #FF9800;
+    text-shadow: 2px 3px 0px #FF9800, -1px -1px 0 #FF9800, 1px -1px 0 #FF9800, -1px 1px 0 #FF9800, 1px 1px 0 #FF9800;
     margin-bottom: 3rem;
-    font-size: 3rem;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    /* Responsive font size */
+    z-index: 10;
+    padding: 0 1rem;
 }
 
 .button-group {
     display: flex;
-    gap: 20px;
+    gap: 1.5rem;
     flex-wrap: wrap;
     justify-content: center;
     z-index: 10;
+    max-width: 800px;
+    width: 100%;
+    padding: 0 1rem;
 }
 
 .level-btn {
     border: none;
     padding: 1.5rem 2.5rem;
     border-radius: 50px;
-    font-size: 1.5rem;
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
     font-weight: bold;
     cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s;
     color: white;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    flex: 1 1 200px;
+    /* Grow and shrink, min width */
+    max-width: 300px;
+    font-family: inherit;
 }
 
 .level-btn:hover {
-    transform: translateY(-5px) scale(1.05);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    transform: translateY(-8px) scale(1.05);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+}
+
+.level-btn:active {
+    transform: translateY(2px) scale(0.95);
 }
 
 .btn-100 {
     background-color: #FF5722;
+    border: 4px solid #E64A19;
 }
 
 .btn-1000 {
     background-color: #4CAF50;
+    border: 4px solid #388E3C;
 }
 
 .btn-3000 {
     background-color: #2196F3;
+    border: 4px solid #1976D2;
 }
 
 /* Simple pure CSS decorations */
@@ -68,33 +86,57 @@
 
 .sun {
     position: absolute;
-    top: 50px;
-    right: 50px;
-    width: 80px;
-    height: 80px;
+    top: 5%;
+    right: 10%;
+    width: clamp(60px, 10vw, 100px);
+    height: clamp(60px, 10vw, 100px);
     background: #FFEB3B;
     border-radius: 50%;
     box-shadow: 0 0 40px #FFEB3B;
+    animation: pulse 4s infinite alternate;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 20px #FFEB3B;
+    }
+
+    100% {
+        transform: scale(1.1);
+        box-shadow: 0 0 50px #FFEB3B, 0 0 100px #FFEB3B;
+    }
 }
 
 .cloud {
     position: absolute;
-    top: 100px;
+    top: 15%;
     left: 10%;
-    width: 120px;
-    height: 60px;
+    width: clamp(80px, 15vw, 150px);
+    height: clamp(40px, 7.5vw, 75px);
     background: white;
     border-radius: 50px;
-    opacity: 0.8;
+    opacity: 0.9;
+    animation: float 10s infinite ease-in-out alternate;
 }
 
 .cloud::after {
     content: '';
     position: absolute;
-    top: -30px;
-    left: 20px;
-    width: 60px;
-    height: 60px;
+    top: -40%;
+    left: 20%;
+    width: 60%;
+    height: 100%;
     background: white;
     border-radius: 50%;
+}
+
+@keyframes float {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(50px);
+    }
 }
