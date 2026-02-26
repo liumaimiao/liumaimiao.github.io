@@ -72,43 +72,29 @@
     background: #E8F5E9;
 }
 
-.qr-container {
-    margin: 1.5rem 0;
-}
-
-.mock-qr {
-    width: 200px;
-    height: 200px;
-    background: #f5f5f5;
-    border: 4px dashed #ccc;
-    border-radius: 10px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #888;
-    font-family: monospace;
-}
-
-.scan-hint {
-    font-size: 0.9rem;
-    color: #666;
-    margin-top: 10px;
-}
-
-.simulate-btn {
-    margin-top: 1rem;
-    background: #2196F3;
+.checkout-btn {
+    width: 100%;
+    margin-top: 1.5rem;
+    background: linear-gradient(135deg, #FF5722, #FF9800);
     color: white;
     border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
+    padding: 14px 20px;
+    border-radius: 12px;
     cursor: pointer;
-    font-size: 0.9rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: all 0.2s;
+    box-shadow: 0 4px 12px rgba(255, 87, 34, 0.3);
 }
 
-.simulate-btn:hover {
-    background: #1976D2;
+.checkout-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(255, 87, 34, 0.4);
+}
+
+.checkout-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
 @keyframes fadeIn {

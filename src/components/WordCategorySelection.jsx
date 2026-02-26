@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import PaymentModal from './PaymentModal';
-import './Home.css'; // Reuse home styles
+import LoginModal from './LoginModal';
+import './Home.css';
 
 function WordCategorySelection() {
     const navigate = useNavigate();
+    const { user } = useAuth();
     const [showPayment, setShowPayment] = useState(false);
+    const [showLogin, setShowLogin] = useState(false);
     const [selectedPremiumTier, setSelectedPremiumTier] = useState(null);
 
     const categories = [
@@ -16,13 +20,20 @@ function WordCategorySelection() {
         { id: 'age-16-18', count: 5000, label: 'Ages 16-18 (5000+ Words)', isPremium: true, colorClass: 'btn-gold' },
     ];
 
+    const isPremiumUnlocked = () => {
+        return user && user.membership === 'premium';
+    };
+
     const handleSelect = (category) => {
         if (category.isPremium) {
-            // Check if unlocked (in a real app, this would check user state/backend)
-            const isUnlocked = localStorage.getItem(`unlocked_${category.id}`);
-            if (isUnlocked) {
+            if (isPremiumUnlocked()) {
                 navigate(`/scenarios/${category.id}`);
+            } else if (!user) {
+                // Not logged in – show login first
+                setSelectedPremiumTier(category);
+                setShowLogin(true);
             } else {
+                // Logged in but not premium – show payment
                 setSelectedPremiumTier(category);
                 setShowPayment(true);
             }
@@ -32,10 +43,10 @@ function WordCategorySelection() {
     };
 
     const handlePaymentSuccess = () => {
-        // Mock unlock: save to local storage
-        localStorage.setItem(`unlocked_${selectedPremiumTier.id}`, 'true');
         setShowPayment(false);
-        navigate(`/scenarios/${selectedPremiumTier.id}`);
+        if (selectedPremiumTier) {
+            navigate(`/scenarios/${selectedPremiumTier.id}`);
+        }
     };
 
     return (
@@ -48,7 +59,7 @@ function WordCategorySelection() {
                         className={`level-btn ${cat.colorClass}`}
                         onClick={() => handleSelect(cat)}
                     >
-                        {cat.label} {cat.isPremium && !localStorage.getItem(`unlocked_${cat.id}`) && '🔒'}
+                        {cat.label} {cat.isPremium && !isPremiumUnlocked() && '🔒'}
                     </button>
                 ))}
             </div>
@@ -57,11 +68,20 @@ function WordCategorySelection() {
                 <div className="sun"></div>
             </div>
 
-            {showPayment && (
+            {showPayment && selectedPremiumTier && (
                 <PaymentModal
                     tier={selectedPremiumTier}
                     onClose={() => setShowPayment(false)}
                     onSuccess={handlePaymentSuccess}
+                />
+            )}
+
+            {showLogin && (
+                <LoginModal
+                    onClose={() => {
+                        setShowLogin(false);
+                        // After successful login, if premium, navigate; else show payment
+                    }}
                 />
             )}
         </div>

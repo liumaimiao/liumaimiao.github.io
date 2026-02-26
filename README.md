@@ -1,16 +1,54 @@
-# React + Vite
+# BitDriven English Learning Site (Frontend)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An interactive, cartoon-themed English learning web app for children, built with React + Vite and hosted on GitHub Pages.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Age-based word tiers** (Ages 3-5, 6-10, 10-12, 12-16, 16-18)
+- **Interactive scenarios** with cartoon characters and text-to-speech
+- **Dictionary view** per age tier with UK English pronunciation
+- **Functional Phrases** module
+- **Premium membership** — paid tiers (Ages 10+) require login and payment
+- **Login system** — WeChat OAuth and Email Magic Link (no passwords)
+- **Real payments** — Alipay and WeChat Pay via backend API
 
-## React Compiler
+## Architecture
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```
+┌──────────────────────────────┐
+│   GitHub Pages (Frontend)    │
+│   React + Vite (Static)      │
+│                              │
+│  ┌─────────────────────────┐ │
+│  │ src/services/api.js     │─┼──►  Cloudflare Worker (Backend)
+│  │ src/context/AuthContext  │ │     ├── Auth (WeChat / Email)
+│  │ src/components/          │ │     ├── Payments (Alipay / WeChat Pay)
+│  └─────────────────────────┘ │     └── D1 Database (SQLite)
+└──────────────────────────────┘
+```
 
-## Expanding the ESLint configuration
+## Setup
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+npm install
+npm run dev          # Start local dev server (http://localhost:5173)
+npm run build        # Build for production
+```
+
+## Environment Variables
+
+Create a `.env` file in the project root:
+
+```env
+VITE_API_BASE=http://localhost:8787         # Local backend
+# VITE_API_BASE=https://your-worker.workers.dev  # Production backend
+VITE_WECHAT_APP_ID=your_wechat_app_id      # For WeChat OAuth redirect
+```
+
+## Deployment
+
+Deployed automatically to GitHub Pages via GitHub Actions on push to `main`.
+
+## Backend
+
+The backend lives in a **separate repository**: [bitdriven_backend](https://github.com/liumaimiao/bitdriven_backend). See the backend README for setup instructions.

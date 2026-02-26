@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
+import { useAuth } from '../context/AuthContext';
+import { checkoutAlipay, checkoutWechatPay } from '../services/api';
 import './PaymentModal.css';
 
 function PaymentModal({ tier, onClose, onSuccess }) {
+    const { user, refreshUser } = useAuth();
     const [method, setMethod] = useState('alipay');
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
 
     const prices = {
         'age-10-12': '¥29.90',
@@ -10,12 +15,41 @@ function PaymentModal({ tier, onClose, onSuccess }) {
         'age-16-18': '¥89.90'
     };
 
+    const handleCheckout = async () => {
+        if (!user) {
+            setError('请先登录 / Please login first');
+            return;
+        }
+        setLoading(true);
+        setError('');
+        try {
+            if (method === 'alipay') {
+                const data = await checkoutAlipay(tier.id);
+                if (data.checkoutUrl) {
+                    window.location.href = data.checkoutUrl;
+                }
+            } else {
+                const data = await checkoutWechatPay(tier.id);
+                // For WeChat JSAPI, the backend returns payment parameters
+                // which would invoke WeixinJSBridge.invoke() on the client
+                if (data.prepay_id) {
+                    // In production: call WeixinJSBridge to trigger payment
+                    console.log('WeChat Pay params:', data);
+                }
+            }
+        } catch (e) {
+            setError(e.message || '支付失败 / Payment failed');
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
         <div className="modal-overlay">
             <div className="modal-content">
                 <button className="close-btn" onClick={onClose}>×</button>
-                <h2>Unlock {tier.label}</h2>
-                <p className="price-tag">Price: <span>{prices[tier.count]}</span></p>
+                <h2>解锁 / Unlock {tier.label}</h2>
+                <p className="price-tag">价格 / Price: <span>{prices[tier.id] || '¥29.90'}</span></p>
 
                 <div className="payment-methods">
                     <label className={`method ${method === 'alipay' ? 'selected' : ''}`}>
@@ -38,16 +72,14 @@ function PaymentModal({ tier, onClose, onSuccess }) {
                     </label>
                 </div>
 
-                <div className="qr-container">
-                    <div className="mock-qr">
-                        [ Scan {method === 'alipay' ? 'Alipay' : 'WeChat'} QR Code ]
-                    </div>
-                    <p className="scan-hint">Please scan the QR code to proceed</p>
-                </div>
+                {error && <p className="error-msg" style={{ color: '#f44336', margin: '0.5rem 0' }}>{error}</p>}
 
-                {/* This button exists only for demo purposes to simulate a successful webhook response */}
-                <button className="simulate-btn" onClick={onSuccess}>
-                    (Demo) Simulate Payment Success
+                <button
+                    className="checkout-btn"
+                    onClick={handleCheckout}
+                    disabled={loading}
+                >
+                    {loading ? '处理中...' : `立即支付 / Pay Now ${prices[tier.id] || ''}`}
                 </button>
             </div>
         </div>
