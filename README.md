@@ -9,8 +9,8 @@ An interactive, cartoon-themed English learning web app for children, built with
 - **Dictionary view** per age tier with UK English pronunciation
 - **Functional Phrases** module
 - **Premium membership** — paid tiers (Ages 10+) require login and payment
-- **Login system** — WeChat OAuth and Email Magic Link (no passwords)
-- **Real payments** — Alipay and WeChat Pay via backend API
+- **Login system** — Email Magic Link via Resend (no passwords)
+- **Real payments** — Alipay Certificate Mode natively via Cloudflare WebCrypto
 
 ## Architecture
 
@@ -21,8 +21,8 @@ An interactive, cartoon-themed English learning web app for children, built with
 │                              │
 │  ┌─────────────────────────┐ │
 │  │ src/services/api.js     │─┼──►  Cloudflare Worker (Backend)
-│  │ src/context/AuthContext  │ │     ├── Auth (WeChat / Email)
-│  │ src/components/          │ │     ├── Payments (Alipay / WeChat Pay)
+│  │ src/context/AuthContext │ │     ├── Auth (Email via Resend)
+│  │ src/components/         │ │     ├── Payments (Alipay Certificate Mode)
 │  └─────────────────────────┘ │     └── D1 Database (SQLite)
 └──────────────────────────────┘
 ```
@@ -42,7 +42,6 @@ Create a `.env` file in the project root:
 ```env
 VITE_API_BASE=http://localhost:8787         # Local backend
 # VITE_API_BASE=https://your-worker.workers.dev  # Production backend
-VITE_WECHAT_APP_ID=your_wechat_app_id      # For WeChat OAuth redirect
 ```
 
 ## Deployment

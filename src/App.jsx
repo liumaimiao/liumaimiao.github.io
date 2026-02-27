@@ -20,7 +20,7 @@ function UserHeader() {
       <div className="user-header">
         {user ? (
           <div className="user-info">
-            <span>👤 {user.email || '微信用户'}</span>
+            <span>👤 {user.email || 'User'}</span>
             <span className={`tier-badge ${user.membership === 'free' ? 'free' : ''}`}>
               {user.membership === 'premium' ? '⭐ Premium' : 'Free'}
             </span>

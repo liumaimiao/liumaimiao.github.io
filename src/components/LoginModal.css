@@ -7,50 +7,6 @@
     color: #333;
 }
 
-.wechat-login-btn {
-    width: 100%;
-    padding: 14px;
-    background: #07C160;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    transition: background 0.2s;
-}
-
-.wechat-login-btn:hover {
-    background: #06AD56;
-}
-
-.wechat-icon {
-    font-size: 1.3rem;
-}
-
-.login-divider {
-    display: flex;
-    align-items: center;
-    margin: 1.5rem 0;
-    gap: 12px;
-}
-
-.login-divider::before,
-.login-divider::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: #ddd;
-}
-
-.login-divider span {
-    color: #999;
-    font-size: 0.85rem;
-}
 
 .email-login {
     display: flex;

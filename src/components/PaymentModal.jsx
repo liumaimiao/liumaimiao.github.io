@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { checkoutAlipay, checkoutWechatPay } from '../services/api';
+import { checkoutAlipay } from '../services/api';
 import './PaymentModal.css';
 
 function PaymentModal({ tier, onClose, onSuccess }) {
@@ -28,14 +28,6 @@ function PaymentModal({ tier, onClose, onSuccess }) {
                 if (data.checkoutUrl) {
                     window.location.href = data.checkoutUrl;
                 }
-            } else {
-                const data = await checkoutWechatPay(tier.id);
-                // For WeChat JSAPI, the backend returns payment parameters
-                // which would invoke WeixinJSBridge.invoke() on the client
-                if (data.prepay_id) {
-                    // In production: call WeixinJSBridge to trigger payment
-                    console.log('WeChat Pay params:', data);
-                }
             }
         } catch (e) {
             setError(e.message || '支付失败 / Payment failed');
@@ -61,15 +53,7 @@ function PaymentModal({ tier, onClose, onSuccess }) {
                         />
                         Alipay 支付宝
                     </label>
-                    <label className={`method ${method === 'wechat' ? 'selected' : ''}`}>
-                        <input
-                            type="radio"
-                            name="payment"
-                            checked={method === 'wechat'}
-                            onChange={() => setMethod('wechat')}
-                        />
-                        WeChat 微信支付
-                    </label>
+
                 </div>
 
                 {error && <p className="error-msg" style={{ color: '#f44336', margin: '0.5rem 0' }}>{error}</p>}

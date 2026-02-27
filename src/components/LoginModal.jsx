@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { sendMagicLink } from '../services/api';
 import './LoginModal.css';
 
-function LoginModal({ onClose, onWechatLogin }) {
+function LoginModal({ onClose }) {
     const [email, setEmail] = useState('');
     const [sent, setSent] = useState(false);
     const [error, setError] = useState('');
@@ -22,15 +22,6 @@ function LoginModal({ onClose, onWechatLogin }) {
         }
     };
 
-    // WeChat login redirect
-    const handleWechatLogin = () => {
-        // In production, redirect to WeChat OAuth page
-        // The App ID and redirect_uri should be configured
-        const appId = import.meta.env.VITE_WECHAT_APP_ID || 'YOUR_WECHAT_APP_ID';
-        const redirectUri = encodeURIComponent(window.location.origin + '/#/auth/wechat/callback');
-        const url = `https://open.weixin.qq.com/connect/qrconnect?appid=${appId}&redirect_uri=${redirectUri}&response_type=code&scope=snsapi_login#wechat_redirect`;
-        window.location.href = url;
-    };
 
     return (
         <div className="modal-overlay">
@@ -46,15 +37,6 @@ function LoginModal({ onClose, onWechatLogin }) {
                     </div>
                 ) : (
                     <>
-                        {/* WeChat Login */}
-                        <button className="wechat-login-btn" onClick={handleWechatLogin}>
-                            <span className="wechat-icon">💬</span> 微信登录 / WeChat Login
-                        </button>
-
-                        <div className="login-divider">
-                            <span>或 / OR</span>
-                        </div>
-
                         {/* Email Magic Link */}
                         <div className="email-login">
                             <input

@@ -28,12 +28,6 @@ export async function verifyMagicLink(token) {
     return request(`/api/auth/email/verify?token=${token}`, { method: 'GET' });
 }
 
-export async function wechatLogin(code) {
-    return request('/api/auth/wechat', {
-        method: 'POST',
-        body: JSON.stringify({ code }),
-    });
-}
 
 export async function getMe() {
     return request('/api/user/me', { method: 'GET' });
@@ -51,9 +45,3 @@ export async function checkoutAlipay(tierId) {
     });
 }
 
-export async function checkoutWechatPay(tierId) {
-    return request('/api/payments/wechat/checkout', {
-        method: 'POST',
-        body: JSON.stringify({ tier_id: tierId }),
-    });
-}
