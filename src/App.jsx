@@ -7,6 +7,8 @@ import Scenario from './components/Scenario';
 import DictionaryView from './components/DictionaryView';
 import PhrasesView from './components/PhrasesView';
 import LoginModal from './components/LoginModal';
+import VerifyMagicLink from './components/VerifyMagicLink';
+import PaymentSuccess from './components/PaymentSuccess';
 import './App.css';
 
 function UserHeader() {
@@ -48,6 +50,8 @@ function App() {
           <Route path="/scenario/:wordCount/:id" element={<Scenario />} />
           <Route path="/dictionary/:wordCount" element={<DictionaryView />} />
           <Route path="/phrases/:wordCount" element={<PhrasesView />} />
+          <Route path="/verify" element={<VerifyMagicLink />} />
+          <Route path="/payment/success" element={<PaymentSuccess />} />
         </Routes>
       </Router>
     </AuthProvider>
