@@ -1,0 +1,119 @@
+.stem-container {
+    padding: 40px 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+    min-height: calc(100vh - 60px);
+}
+
+.labels-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 50px;
+}
+
+.beautiful-label {
+    padding: 15px 35px;
+    border-radius: 50px;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    user-select: none;
+    cursor: default;
+}
+
+.beautiful-label:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+}
+
+.beautiful-label.math {
+    background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+}
+
+.beautiful-label.software {
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
+}
+
+.beautiful-label.physics {
+    background: linear-gradient(135deg, #43e97b, #38f9d7);
+    color: #2e7d32;
+}
+
+.stem-text-card {
+    text-align: center;
+    font-size: 1.25rem;
+    line-height: 1.8;
+    color: #424242;
+    margin-bottom: 50px;
+}
+
+.stem-text-card a {
+    color: #0288D1;
+    text-decoration: none;
+    font-weight: 600;
+    position: relative;
+}
+
+.stem-text-card a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: #0288D1;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.stem-text-card a:hover::after {
+    transform: scaleX(1);
+}
+
+.qrcode-section {
+    text-align: center;
+    padding: 40px;
+}
+
+.qrcode-section h2 {
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 30px;
+    font-size: 1.8rem;
+}
+
+.qrcode-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.qrcode-image {
+    width: 280px;
+    height: 280px;
+    background-color: #f8f9fa;
+    border: 3px dashed #cfd8dc;
+    border-radius: 20px;
+    object-fit: contain;
+    display: block;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Also ensure card styling matches About */
+.card {
+    background: white;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
