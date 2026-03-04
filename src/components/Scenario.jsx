@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { loadTierData, SCENARIO_METADATA } from '../data/dictionary.js';
 import './Scenario.css';
@@ -19,11 +19,29 @@ function Scenario() {
         fetchData();
     }, [wordCount, id]);
 
+    const timeoutRef = useRef(null);
+
+    // Stop speech synthesis when component unmounts
+    useEffect(() => {
+        return () => {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+            }
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+            }
+        };
+    }, []);
+
     const handleInteract = (item) => {
         setActiveItem(item);
         // Web Speech API for Text-to-Speech
         if ('speechSynthesis' in window) {
             window.speechSynthesis.cancel(); // Stop any current speech
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+                timeoutRef.current = null;
+            }
 
             const utterWord = new SpeechSynthesisUtterance(item.word);
             const utterSentence = new SpeechSynthesisUtterance(item.sentence);
@@ -35,9 +53,20 @@ function Scenario() {
             window.speechSynthesis.speak(utterWord);
 
             // Small pause before reading the sentence
-            setTimeout(() => {
+            timeoutRef.current = setTimeout(() => {
                 window.speechSynthesis.speak(utterSentence);
             }, 1000);
+        }
+    };
+
+    const handleMouseLeave = () => {
+        setActiveItem(null);
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel(); // Stop any ongoing speech
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current); // Prevent sentence from starting if word was interrupted
+                timeoutRef.current = null;
+            }
         }
     };
 
@@ -62,6 +91,7 @@ function Scenario() {
                         className={`item-card ${activeItem?.id === item.id ? 'active' : ''}`}
                         onClick={() => handleInteract(item)}
                         onMouseEnter={() => handleInteract(item)}
+                        onMouseLeave={handleMouseLeave}
                     >
                         <div className="item-icon">{item.emoji}</div>
                     </div>
