@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { loadTierData } from '../data/dictionary';
+import { loadTierData } from '../data/dictionary.js';
 import './DictionaryView.css'; // Reusing dictionary styles where applicable
 
 function PhrasesView() {

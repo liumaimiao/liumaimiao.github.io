@@ -1,3 +1,5 @@
+import { getTierData } from '../services/api.js';
+
 // Centralized Dictionary Data Loader and Metadata
 export const SCENARIO_METADATA = {
     home: { id: 'home', title: 'At Home', emoji: '🏠', background: '#FFF3E0' },
@@ -10,35 +12,21 @@ export const SCENARIO_METADATA = {
     animals: { id: 'animals', title: 'Animals', emoji: '🐕', background: '#EFEBE9' }
 };
 
-// Dynamic mapping of tier files for Vita bundler
-const tierFiles = {
-    'age-3-5': () => import('./age-3-5.js'),
-    'age-6-10': () => import('./age-6-10.js'),
-    'age-10-12': () => import('./age-10-12.js'),
-    'age-12-16': () => import('./age-12-16.js'),
-    'age-16-18': () => import('./age-16-18.js')
-};
-
 /**
- * Asynchronously loads the dictionary and phrases data for a specific age tier.
- * This ensures that users only download the megabytes of vocabulary JSON when
- * they actually click on the tier, improving app load times (Code Splitting).
+ * Asynchronously loads the dictionary and phrases data for a specific age tier
+ * from the Cloudflare Worker API.
  */
 export const loadTierData = async (tierId) => {
     try {
-        if (tierFiles[tierId]) {
-            const module = await tierFiles[tierId]();
-            return {
-                dictionary: module.dictionary || {},
-                phrases: module.phrases || []
-            };
-        }
+        const data = await getTierData(tierId);
+        return {
+            dictionary: data.dictionary || {},
+            phrases: data.phrases || []
+        };
     } catch (error) {
         console.error(`Failed to load data for tier ${tierId}:`, error);
+        return { dictionary: {}, phrases: [] };
     }
-
-    // Fallback if loading fails or tier doesn't exist
-    return { dictionary: {}, phrases: [] };
 };
 
 // Return a list of categories available for a loaded dictionary object

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { loadTierData, getAvailableScenarios } from '../data/dictionary';
+import { loadTierData, getAvailableScenarios } from '../data/dictionary.js';
 import './Scenario.css'; // Reusing scenario styles for grid layout
 
 function ScenarioList() {

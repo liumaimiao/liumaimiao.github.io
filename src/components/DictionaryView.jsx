@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { loadTierData, getSortedDictionary } from '../data/dictionary';
+import { loadTierData, getSortedDictionary } from '../data/dictionary.js';
 import './DictionaryView.css';
 
 function DictionaryView() {

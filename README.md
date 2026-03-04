@@ -8,9 +8,8 @@ An interactive, cartoon-themed English learning web app for children, built with
 - **Interactive scenarios** with cartoon characters and text-to-speech
 - **Dictionary view** per age tier with UK English pronunciation
 - **Functional Phrases** module
-- **Premium membership** — paid tiers (Ages 10+) require login and payment
-- **Login system** — Email Magic Link via Resend (no passwords)
-- **Real payments** — Alipay Certificate Mode natively via Cloudflare WebCrypto
+- **Completely Free** — All content is accessible without login
+- **Dynamic Content** — Vocabulary is loaded dynamically from a Cloudflare Worker D1 database
 
 ## Architecture
 
@@ -21,9 +20,9 @@ An interactive, cartoon-themed English learning web app for children, built with
 │                              │
 │  ┌─────────────────────────┐ │
 │  │ src/services/api.js     │─┼──►  Cloudflare Worker (Backend)
-│  │ src/context/AuthContext │ │     ├── Auth (Email via Resend)
-│  │ src/components/         │ │     ├── Payments (Alipay Certificate Mode)
-│  └─────────────────────────┘ │     └── D1 Database (SQLite)
+│  │ src/data/dictionary.js  │ │     └── D1 Database (SQLite)
+│  │ src/components/         │ │         ├── words table
+│  └─────────────────────────┘ │         └── functional_phrases table
 └──────────────────────────────┘
 ```
 

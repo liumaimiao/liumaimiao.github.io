@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { loadTierData, SCENARIO_METADATA } from '../data/dictionary';
+import { loadTierData, SCENARIO_METADATA } from '../data/dictionary.js';
 import './Scenario.css';
 
 function Scenario() {
