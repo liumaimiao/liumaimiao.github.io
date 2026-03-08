@@ -6,11 +6,11 @@ function WordCategorySelection() {
     const navigate = useNavigate();
 
     const categories = [
-        { id: 'age-3-5', count: 100, label: 'Ages 3-5 (100+ Words)', colorClass: 'btn-100' },
-        { id: 'age-6-10', count: 500, label: 'Ages 6-10 (500+ Words)', colorClass: 'btn-1000' },
-        { id: 'age-10-12', count: 1500, label: 'Ages 10-12 (1500+ Words)', colorClass: 'btn-3000' },
-        { id: 'age-12-16', count: 3000, label: 'Ages 12-16 (3000+ Words)', colorClass: 'btn-purple' },
-        { id: 'age-16-18', count: 5000, label: 'Ages 16-18 (5000+ Words)', colorClass: 'btn-gold' },
+        { id: 'age-3-5', count: 100, label: 'Ages 3-5 (100+ Words) 👶', colorClass: 'btn-100' },
+        { id: 'age-6-10', count: 500, label: 'Ages 6-10 (500+ Words) 🧒', colorClass: 'btn-1000' },
+        { id: 'age-10-12', count: 1500, label: 'Ages 10-12 (1500+ Words) 🧑', colorClass: 'btn-3000' },
+        { id: 'age-12-16', count: 3000, label: 'Ages 12-16 (3000+ Words) 🧑‍🎓', colorClass: 'btn-purple' },
+        { id: 'age-16-18', count: 5000, label: 'Ages 16-18 (5000+ Words) 🎓', colorClass: 'btn-gold' },
     ];
 
     const handleSelect = (category) => {
