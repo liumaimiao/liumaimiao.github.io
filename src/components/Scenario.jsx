@@ -45,6 +45,10 @@ function Scenario() {
             const utterWord = new SpeechSynthesisUtterance(item.word);
             const utterSentence = new SpeechSynthesisUtterance(item.sentence);
 
+            // Forcing British English to fix the default OS synthesizer mispronouncing phonetic "Yak"
+            utterWord.lang = 'en-GB';
+            utterSentence.lang = 'en-GB';
+
             // Make the voice sound a bit friendlier for kids if possible
             utterWord.rate = 0.9;
             utterSentence.rate = 0.85;
@@ -59,11 +63,20 @@ function Scenario() {
     };
 
     const handleInteract = (item) => {
+        // Do not interrupt the user's explicit selection if there's a locked item
+        if (lockedItem) return;
+
         setActiveItem(item);
         playSpeech(item);
     };
 
     const handleClick = (item) => {
+        // Toggle the lock off if they click it again
+        if (lockedItem?.id === item.id) {
+            setLockedItem(null);
+            return;
+        }
+
         setLockedItem(item);
         setActiveItem(item);
         playSpeech(item);
