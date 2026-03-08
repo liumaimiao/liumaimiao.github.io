@@ -10,6 +10,7 @@ function Scenario() {
     // Fallback to an empty array if wordCount or ID is not found in DICTIONARY
     const [items, setItems] = useState(null);
     const [activeItem, setActiveItem] = useState(null);
+    const [lockedItem, setLockedItem] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -33,9 +34,7 @@ function Scenario() {
         };
     }, []);
 
-    const handleInteract = (item) => {
-        setActiveItem(item);
-        // Web Speech API for Text-to-Speech
+    const playSpeech = (item) => {
         if ('speechSynthesis' in window) {
             window.speechSynthesis.cancel(); // Stop any current speech
             if (timeoutRef.current) {
@@ -59,15 +58,25 @@ function Scenario() {
         }
     };
 
+    const handleInteract = (item) => {
+        setActiveItem(item);
+        playSpeech(item);
+    };
+
+    const handleClick = (item) => {
+        setLockedItem(item);
+        setActiveItem(item);
+        playSpeech(item);
+    };
+
     const handleMouseLeave = () => {
-        setActiveItem(null);
-        if ('speechSynthesis' in window) {
-            window.speechSynthesis.cancel(); // Stop any ongoing speech
-            if (timeoutRef.current) {
-                clearTimeout(timeoutRef.current); // Prevent sentence from starting if word was interrupted
-                timeoutRef.current = null;
-            }
+        if (lockedItem) {
+            setActiveItem(lockedItem);
+        } else {
+            setActiveItem(null);
         }
+
+        // Don't cancel speech on mouse leave so they can hear the full sentence
     };
 
     // Formatting "age-3-5" to "Ages 3-5" for beautiful display
@@ -84,20 +93,7 @@ function Scenario() {
                 <h1>{scenarioMeta.title} ({displayTitle} Tier)</h1>
             </header>
 
-            <div className="items-grid">
-                {items.map((item) => (
-                    <div
-                        key={item.id}
-                        className={`item-card ${activeItem?.id === item.id ? 'active' : ''}`}
-                        onClick={() => handleInteract(item)}
-                        onMouseEnter={() => handleInteract(item)}
-                        onMouseLeave={handleMouseLeave}
-                    >
-                        <div className="item-icon">{item.emoji}</div>
-                    </div>
-                ))}
-            </div>
-
+            {/* Moved learning-panel to the top immediately below header */}
             {activeItem ? (
                 <div className="learning-panel">
                     <div className="panel-word">{activeItem.word}</div>
@@ -108,6 +104,25 @@ function Scenario() {
                     <div className="panel-sentence">Hover or tap an object to hear its name!</div>
                 </div>
             )}
+
+            <div className="items-grid">
+                {items.map((item) => (
+                    <div
+                        key={item.id}
+                        className={`item-card ${activeItem?.id === item.id ? 'active' : ''}`}
+                        onClick={() => handleClick(item)}
+                        onMouseEnter={() => handleInteract(item)}
+                        onMouseLeave={handleMouseLeave}
+                    >
+                        {/* Render strings conditionally for advanced tiers vs emojis */}
+                        {item.emoji === '' ? (
+                            <div className="item-text-fallback" style={{ fontSize: '1.2rem', fontWeight: 'bold', padding: '10px' }}>{item.word}</div>
+                        ) : (
+                            <div className="item-icon">{item.emoji}</div>
+                        )}
+                    </div>
+                ))}
+            </div>
         </div>
     );
 }
