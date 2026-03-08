@@ -89,11 +89,16 @@
     width: 90%;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     animation: slideUp 0.4s ease-out;
+    min-height: 160px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
 }
 
 .learning-panel.hint {
     opacity: 0.7;
-    padding: 1.5rem;
 }
 
 @keyframes slideUp {
