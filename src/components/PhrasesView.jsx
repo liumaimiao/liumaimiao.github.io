@@ -31,6 +31,10 @@ function PhrasesView() {
         }
     };
 
+    if (phraseGroups === null) {
+        return <div className="dictionary-container" style={{ textAlign: 'center', paddingTop: '50px' }}><h2>Loading phrases...</h2></div>;
+    }
+
     return (
         <div className="dictionary-container">
             <header className="dictionary-header">
@@ -50,11 +54,26 @@ function PhrasesView() {
                             </div>
                             <div className="phrases-list">
                                 {group.phrases.map((phrase, idx) => (
-                                    <div key={idx} className="phrase-row">
-                                        <p>{phrase}</p>
-                                        <button className="listen-mini-btn" onClick={() => handleSpeak(phrase)}>
-                                            🔊
-                                        </button>
+                                    <div key={idx} className={`phrase-row ${phrase.q ? 'qa-row' : ''}`}>
+                                        {phrase.q ? (
+                                            <div className="qa-container">
+                                                <div className="qa-item">
+                                                    <span className="qa-label q-label">Q:</span>
+                                                    <p className="qa-text">{phrase.q}</p>
+                                                    <button className="listen-mini-btn" onClick={() => handleSpeak(phrase.q)}>🔊</button>
+                                                </div>
+                                                <div className="qa-item">
+                                                    <span className="qa-label a-label">A:</span>
+                                                    <p className="qa-text">{phrase.a}</p>
+                                                    <button className="listen-mini-btn" onClick={() => handleSpeak(phrase.a)}>🔊</button>
+                                                </div>
+                                            </div>
+                                        ) : (
+                                            <>
+                                                <p>{phrase.text || phrase}</p>
+                                                <button className="listen-mini-btn" onClick={() => handleSpeak(phrase.text || phrase)}>🔊</button>
+                                            </>
+                                        )}
                                     </div>
                                 ))}
                             </div>

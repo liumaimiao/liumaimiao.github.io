@@ -195,3 +195,46 @@
     transform: scale(1.1);
     background: #AB47BC;
 }
+
+/* Q&A Styles */
+.qa-row {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 1rem 1.2rem;
+    gap: 0.8rem;
+}
+
+.qa-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    width: 100%;
+}
+
+.qa-item {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    width: 100%;
+}
+
+.qa-label {
+    font-weight: bold;
+    font-size: 1.2rem;
+    min-width: 30px;
+}
+
+.q-label {
+    color: #E91E63;
+}
+
+.a-label {
+    color: #2196F3;
+}
+
+.qa-text {
+    flex: 1;
+    margin: 0;
+    font-size: 1.2rem;
+    color: #333;
+}

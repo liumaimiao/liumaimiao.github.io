@@ -9,7 +9,15 @@ export const SCENARIO_METADATA = {
     food: { id: 'food', title: 'Food & Drink', emoji: '🍎', background: '#FCE4EC' },
     clothes: { id: 'clothes', title: 'Clothes', emoji: '👕', background: '#ECEFF1' },
     body: { id: 'body', title: 'Body & Feelings', emoji: '👀', background: '#FFF8E1' },
-    animals: { id: 'animals', title: 'Animals', emoji: '🐕', background: '#EFEBE9' }
+    animals: { id: 'animals', title: 'Animals', emoji: '🐕', background: '#EFEBE9' },
+    unit1: { id: 'unit1', title: 'Unit 1', emoji: '📚', background: '#F5F5F5' },
+    unit2: { id: 'unit2', title: 'Unit 2', emoji: '📘', background: '#E0E0E0' },
+    unit3: { id: 'unit3', title: 'Unit 3', emoji: '📗', background: '#F5F5F5' },
+    unit4: { id: 'unit4', title: 'Unit 4', emoji: '📙', background: '#E0E0E0' },
+    unit5: { id: 'unit5', title: 'Unit 5', emoji: '📓', background: '#F5F5F5' },
+    unit6: { id: 'unit6', title: 'Unit 6', emoji: '📔', background: '#E0E0E0' },
+    unit7: { id: 'unit7', title: 'Unit 7', emoji: '📒', background: '#F5F5F5' },
+    unit8: { id: 'unit8', title: 'Unit 8', emoji: '📖', background: '#E0E0E0' }
 };
 
 /**
