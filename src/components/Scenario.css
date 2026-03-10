@@ -78,7 +78,7 @@
 
 .item-card:hover,
 .item-card.active {
-    transform: scale(1.1) translateY(-10px);
+    transform: scale(1.05);
     box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
     border-color: #FF9800;
     z-index: 10;
@@ -98,8 +98,8 @@
     max-width: 600px;
     width: 90%;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-    animation: slideUp 0.4s ease-out;
-    min-height: 160px;
+    height: 250px;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
